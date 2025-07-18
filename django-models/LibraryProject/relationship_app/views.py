@@ -19,7 +19,7 @@ class LibraryDetailView(DetailView):
         context['books'] = self.object.books.all()  # Get all books in the library
         return context
 
-class RegisterView(View):
+class register(View):
     def get(self, request):
         form = UserCreationForm()
         return render(request, 'relationship_app/register.html', {'form': form})
