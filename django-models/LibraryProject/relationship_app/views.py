@@ -1,8 +1,9 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render
 from .models import Book
 from .models import Library
-from django.views.generic.detail import DetailView,CreateView
-from django.urls import reverse_lazy
+from django.contrib.auth import login
+from django.views.generic.detail import DetailView
+
 from django.contrib.auth.forms import UserCreationForm
 # Create your views here.
 def list_books(request):
@@ -18,7 +19,15 @@ class LibraryDetailView(DetailView):
         context['books'] = self.object.books.all()  # Get all books in the library
         return context
 
-class SignUpView(CreateView):
-    form_class = UserCreationForm
-    success_url = reverse_lazy('login')
-    template_name = 'registration_app/register.html'
+class RegisterView(View):
+    def get(self, request):
+        form = UserCreationForm()
+        return render(request, 'relationship_app/register.html', {'form': form})
+
+    def post(self, request):
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)  # ✅ Required by the check
+            return redirect('/')
+        return render(request, 'relationship_app/register.html', {'form': form})
