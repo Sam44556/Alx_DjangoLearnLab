@@ -65,7 +65,7 @@ class Register(View):
             return redirect('/')
         return render(request, 'relationship_app/register.html', {'form': form})
     
-@permission_required('relationship_app.can_add_book')
+@permission_required('relationship_app.can_add')
 def add_book(request):
     if request.method == 'POST':
         form = BookForm(request.POST)
@@ -76,8 +76,15 @@ def add_book(request):
         form = BookForm()
     return render(request, 'relationship_app/add_book.html', {'form': form})
 
-
-@permission_required('relationship_app.can_change_book')
+@permission_required('blog.can_delete', raise_exception=True)
+def article_delete(request, pk):
+    article = get_object_or_404(Article, pk=pk)
+    # logic to delete the article
+@permission_required('blog.can_view', raise_exception=True)
+def article_view(request, pk):
+    article = get_object_or_404(Article, pk=pk)
+    # logic to delete the article
+@permission_required('relationship_app.can_edit')
 def edit_book(request, book_id):
     book = get_object_or_404(Book, id=book_id)
     if request.method == 'POST':
