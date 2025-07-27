@@ -139,6 +139,7 @@ INSTALLED_APPS += ['csp']
 
 MIDDLEWARE += ['csp.middleware.CSPMiddleware']
 SECURE_SSL_REDIRECT = True
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 CSP_DEFAULT_SRC = ("'self'",)
 CSP_SCRIPT_SRC = ("'self'", "https://trusted-cdn.com")
