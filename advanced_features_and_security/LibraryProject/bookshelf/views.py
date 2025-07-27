@@ -4,6 +4,11 @@ from .models import Book
 def books(request):
     all_books = Book.objects.all()
     return render(request, 'bookshelf/books.html', {'books': all_books})
+def search_view(request):
+    form = SearchForm(request.GET)
+    if form.is_valid():
+        title = form.cleaned_data['title']
+        results = Book.objects.filter(title__icontains=title)
 
 @permission_required('relationship_app.can_create', raise_exception=True)
 def add_book(request):
