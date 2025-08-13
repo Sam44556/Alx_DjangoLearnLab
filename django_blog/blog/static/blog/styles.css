@@ -1,0 +1,8 @@
+* { box-sizing: border-box; }
+body { font-family: Arial, sans-serif; margin: 0; background: #f9f9f9; color: #333; }
+header { background: #333; color: #fff; padding: 10px; }
+header ul { list-style: none; padding: 0; margin: 0; }
+header li { display: inline-block; margin-right: 15px; }
+header a { color: #fff; text-decoration: none; }
+.content { padding: 20px; }
+.messages { padding: 10px; margin-bottom: 10px; background: #eef; border: 1px solid #ccd; }
