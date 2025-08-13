@@ -129,6 +129,9 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'    # for production collectstatic
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
+LOGIN_URL = 'login'
+LOGIN_REDIRECT_URL = 'post-list'
+LOGOUT_REDIRECT_URL = 'post-list'
 
 
 # Default primary key field type
