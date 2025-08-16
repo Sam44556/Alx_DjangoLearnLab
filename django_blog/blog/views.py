@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.urls import reverse_lazy, reverse
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
-from .form import PostForm,CommentForm, RegisterForm
+from .forms import PostForm,CommentForm, RegisterForm
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.decorators import login_required
 from .models import Post, Comment
@@ -41,7 +41,7 @@ class CommentUpdateView(generics.UpdateAPIView):
 class CommentDeleteView(generics.DestroyAPIView):
     queryset = Comment.objects.all()
     serializer_class = CommentSerializer
-    
+
 class PostListView(ListView):
     model = Post
     template_name = "blog/post_list.html"
