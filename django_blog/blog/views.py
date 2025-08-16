@@ -26,7 +26,22 @@ def add_comment(request, post_id):
     else:
         form = CommentForm()
     return render(request, 'comments/add_comment.html', {'form': form})
+class CommentCreateView(generics.CreateAPIView):
+    queryset = Comment.objects.all()
+    serializer_class = CommentSerializer
 
+
+# Update a comment
+class CommentUpdateView(generics.UpdateAPIView):
+    queryset = Comment.objects.all()
+    serializer_class = CommentSerializer
+
+
+# Delete a comment
+class CommentDeleteView(generics.DestroyAPIView):
+    queryset = Comment.objects.all()
+    serializer_class = CommentSerializer
+    
 class PostListView(ListView):
     model = Post
     template_name = "blog/post_list.html"
