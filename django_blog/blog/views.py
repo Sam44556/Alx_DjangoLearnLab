@@ -1,19 +1,31 @@
-from django.shortcuts import render
-from .models import Post
+
+
 from django.contrib.auth import login
-from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.models import User
-from .forms import RegisterForm
-
-# blog/views.py
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.urls import reverse_lazy, reverse
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from .form import PostForm,CommentForm, RegisterForm
+from django.shortcuts import get_object_or_404, redirect, render
+from django.contrib.auth.decorators import login_required
+from .models import Post, Comment
 
-from .models import Post
-from .forms import PostForm
+
+@login_required
+def add_comment(request, post_id):
+    post = get_object_or_404(Post, id=post_id)
+    if request.method == "POST":
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.post = post
+            comment.author = request.user
+            comment.save()
+            return redirect('post_detail', pk=post.id)
+    else:
+        form = CommentForm()
+    return render(request, 'comments/add_comment.html', {'form': form})
 
 class PostListView(ListView):
     model = Post

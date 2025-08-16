@@ -18,5 +18,7 @@ urlpatterns = [
     path('register/', views.register, name='register'),
     path('profile/', views.profile, name='profile'),
     path("posts/", PostListView.as_view(), name="post-list"),
-   
+     path("posts/<int:post_id>/comments/new/", views.add_comment, name="add_comment"),
 ]
+   
+
