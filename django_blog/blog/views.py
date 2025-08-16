@@ -9,8 +9,25 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView, D
 from .forms import PostForm,CommentForm, RegisterForm
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.decorators import login_required
-from .models import Post, Comment
+from .models import Post, Comment,Tag
+from django.db.models import Q
 
+
+def search_posts(request):
+    query = request.GET.get("q")
+    results = Post.objects.all()
+    if query:
+        results = results.filter(
+            Q(title__icontains=query) |
+            Q(content__icontains=query) |
+            Q(tags__name__icontains=query)
+        ).distinct()
+    return render(request, "blog/search_results.html", {"results": results, "query": query})
+
+def posts_by_tag(request, tag_name):
+    tag = get_object_or_404(Tag, name=tag_name)
+    posts = Post.objects.filter(tags=tag)
+    return render(request, "blog/posts_by_tag.html", {"tag": tag, "posts": posts})
 
 @login_required
 def add_comment(request, post_id):
