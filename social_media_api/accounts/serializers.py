@@ -7,7 +7,7 @@ User = get_user_model()
 class RegisterSerializer(serializers.ModelSerializer):
     # Explicit password field (required by test)
     password = serializers.CharField(write_only=True)
-
+   serializers.CharField()
     class Meta:
         model = User
         fields = ("id", "username", "email", "password", "bio", "profile_picture")
