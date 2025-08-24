@@ -1,7 +1,12 @@
 
 from rest_framework import serializers
 from .models import Post, Comment
+from .models import Like
 
+class LikeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Like
+        fields = ["id", "user", "post", "created_at"]
 class CommentSerializer(serializers.ModelSerializer):
     author_name = serializers.CharField(source="author.username", read_only=True)
 

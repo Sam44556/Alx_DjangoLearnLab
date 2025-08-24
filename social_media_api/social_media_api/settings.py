@@ -44,6 +44,14 @@ INSTALLED_APPS = [
 
 ]
 AUTH_USER_MODEL = 'accounts.CustomUser'
+DEBUG = False
+ALLOWED_HOSTS = ["yourdomain.com", "127.0.0.1"]
+
+# Security
+SECURE_BROWSER_XSS_FILTER = True
+X_FRAME_OPTIONS = "DENY"
+SECURE_CONTENT_TYPE_NOSNIFF = True
+SECURE_SSL_REDIRECT = True
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
